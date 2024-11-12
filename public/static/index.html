@@ -5,129 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connect 4 Game</title>
     <style>
-/* Basic styling for the game */
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f0f0f0;
-    color: #333;
-    padding: 20px;
-}
+        /* Basic styling for the game */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+            padding: 20px;
+        }
 
-/* Wrapper for the game board */
-#game-wrapper {
-    display: inline-block;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #3262a8;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
-}
+        /* Wrapper for the game board */
+        #game-wrapper {
+            display: inline-block;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #333;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.5);
+        }
 
-/* Styling for the game board with rotation */
-#game-board {
-    display: grid;
-    grid-template-columns: repeat(10, 50px);
-    grid-gap: 5px;
-    margin: 0 auto;
-    transform: rotate(-90deg); /* Keep the rotation as specified */
-}
+        /* Styling for the game board with rotation */
+        #game-board {
+            display: grid;
+            grid-template-columns: repeat(10, 50px);
+            grid-gap: 5px;
+            margin: 0 auto;
+            transform: rotate(-90deg); /* Keep the rotation as specified */
+        }
 
-/* Style for each cell */
-.cell {
-    width: 50px;
-    height: 50px;
-    background-color: #f1f1f1;
-    border-radius: 50%;
-    box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s;
-}
+        /* Style for each cell */
+        .cell {
+            width: 50px;
+            height: 50px;
+            background-color: #666;
+            border-radius: 50%;
+            box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s;
+            box-shadow: 0 0 0px 5px rgba(232, 77, 77, 0.6); /* Adjust color and spread as needed */
 
-.cell:hover {
-    background-color: #d3d3d3;
-    transform: scale(1.1);
-}
+        }
 
-/* Styling for Player 1's and Player 2's pieces */
-.cell.player1 {
-    background-color: red;
-}
+        .highlight {
+            transform: scale(1);
+            box-shadow: 0 0 0px 5px hsla(287, 85%, 38%, 0.6); /* Adjust color and spread as needed */
+        }
+        
+        /* Styling for Player 1's and Player 2's pieces */
+        .cell.player1 {
+            background-color: #e63946;
+        }
 
-.cell.player2 {
-    background-color: yellow;
-}
+        .cell.player2 {
+            background-color: hwb(107 38% 4%);
 
-/* Drop-in animation */
-@keyframes dropIn {
-    from {
-        transform: translateX(100px);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0px);
-        opacity: 1;
-    }
-}
+        }
 
-/* Input box for column selection */
-input[type="number"] {
-    width: 80px;
-    text-align: center;
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 5px;
-    margin-top: 20px;
-    border: 2px solid #ddd;
-}
+        /* Drop-in animation */
+        @keyframes dropIn {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0px);
+                opacity: 1;
+            }
+        }
 
-/* Style for the buttons */
-button {
-    padding: 10px 20px;
-    font-size: 18px;
-    margin: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    transition: background-color 0.3s, transform 0.2s;
-}
+        /* Style for the buttons */
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            transition: background-color 0.3s, transform 0.2s;
+        }
 
-button:hover {
-    background-color: #45a049;
-    transform: scale(1.05);
-}
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
 
-/* Styling for messages */
-#message {
-    font-size: 20px;
-    margin-top: 20px;
-    font-weight: bold;
-}
+        /* Styling for messages */
+        #message {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
 
-/* Winner message styling */
-#winner {
-    font-size: 22px;
-    font-weight: bold;
-    margin-top: 20px;
-    color: #28a745;
-}
+        /* Winner message styling */
+        #winner {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #28a745;
+        }
 
-/* Additional improvements */
-input[type="number"]:focus {
-    outline: none;
-    border-color: #4CAF50;
-}
+        /* Additional improvements */
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
     </style>
 </head>
 <body>
     <div id="game-wrapper">
         <!-- Game Board -->
         <div id="game-board"></div>
-        <!-- Input to specify the column -->
-        <!-- <input type="number" id="column-input" placeholder="Enter Column (0-9)" min="0" max="9"> -->
-        <!-- Make Move Button -->
-        <!-- <button onclick="makeMove()">Make Move</button> -->
         <!-- Reset Button -->
         <div id="resetbutton">
             <button onclick="resetGame()">Reset Game</button>
