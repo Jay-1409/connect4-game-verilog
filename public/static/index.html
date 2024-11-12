@@ -10,41 +10,42 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f0f0f0;
-    margin-top: 30px;
     color: #333;
-    padding: 0 10px;  /* Added padding to prevent elements from touching the edges */
+    padding: 20px;
 }
 
-/* Wrapper for the game board to provide spacing */
+/* Wrapper for the game board */
 #game-wrapper {
-    margin-bottom: 0px;  /* Ensure space between grid and other elements */
+    display: inline-block;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #3262a8;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Styling for the game board */
+/* Styling for the game board with rotation */
 #game-board {
-    position:sticky;
     display: grid;
     grid-template-columns: repeat(10, 50px);
     grid-gap: 5px;
-    margin: 250px;  /* Center the game board horizontally */
-    transform: rotate(-90deg);  /* Rotate the game board 90 degrees */
+    margin: 0 auto;
+    transform: rotate(-90deg); /* Keep the rotation as specified */
 }
 
 /* Style for each cell */
 .cell {
     width: 50px;
     height: 50px;
-    background-color: #e0e0e0;
-    border: 2px solid #444;
-    text-align: center;
-    line-height: 50px;
-    font-size: 24px;
+    background-color: #f1f1f1;
+    border-radius: 50%;
+    box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    transition: background-color 0.3s;  /* Smooth transition for color change */
+    transition: transform 0.3s ease, background-color 0.3s;
 }
 
 .cell:hover {
-    background-color: #ccc;  /* Slight hover effect */
+    background-color: #d3d3d3;
+    transform: scale(1.1);
 }
 
 /* Styling for Player 1's and Player 2's pieces */
@@ -56,11 +57,23 @@ body {
     background-color: yellow;
 }
 
+/* Drop-in animation */
+@keyframes dropIn {
+    from {
+        transform: translateX(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+
 /* Input box for column selection */
 input[type="number"] {
-    width: 60px;
+    width: 80px;
     text-align: center;
-    padding: 8px;
+    padding: 10px;
     font-size: 18px;
     border-radius: 5px;
     margin-top: 20px;
@@ -69,7 +82,6 @@ input[type="number"] {
 
 /* Style for the buttons */
 button {
-    position: sticky;
     padding: 10px 20px;
     font-size: 18px;
     margin: 10px;
@@ -78,64 +90,53 @@ button {
     background-color: #4CAF50;
     color: white;
     border: none;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover {
-    background-color: #45a049;  /* Hover effect on button */
+    background-color: #45a049;
+    transform: scale(1.05);
 }
 
 /* Styling for messages */
 #message {
-    font-size: 18px;
+    font-size: 20px;
     margin-top: 20px;
     font-weight: bold;
-}
-
-/* Reset button section */
-#resetbutton {
-    margin-top: 20px;
 }
 
 /* Winner message styling */
 #winner {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: bold;
     margin-top: 20px;
-    color: green;
-}
-
-/* Specific styling for Player 1 and Player 2 labels */
-.player1 {
-    background-color: red;  /* Red for Player 1 */
-}
-
-.player2 {
-    background-color: yellow;  /* Yellow for Player 2 */
+    color: #28a745;
 }
 
 /* Additional improvements */
 input[type="number"]:focus {
     outline: none;
-    border-color: #4CAF50;  /* Highlight input field on focus */
+    border-color: #4CAF50;
 }
     </style>
 </head>
 <body>
-    <!-- Game Board -->
-    <div id="game-board"></div>
-    <!-- Input to specify the column -->
-    <input type="number" id="column-input" placeholder="Enter Column (0-9)" min="0" max="9">
-    <!-- Make Move Button -->
-    <button onclick="makeMove()">Make Move</button>
-    <!-- Message to display turn/winner information -->
-    <p id="message">Player 1's turn.</p>
-    <!-- Reset Button -->
-    <div id="resetbutton">
-        <button onclick="resetGame()">Reset Game</button>
+    <div id="game-wrapper">
+        <!-- Game Board -->
+        <div id="game-board"></div>
+        <!-- Input to specify the column -->
+        <!-- <input type="number" id="column-input" placeholder="Enter Column (0-9)" min="0" max="9"> -->
+        <!-- Make Move Button -->
+        <!-- <button onclick="makeMove()">Make Move</button> -->
+        <!-- Reset Button -->
+        <div id="resetbutton">
+            <button onclick="resetGame()">Reset Game</button>
+        </div>
+        <!-- Message to display turn/winner information -->
+        <p id="message">Player 1's turn.</p>
+        <!-- Winner Section -->
+        <div id="winner"></div>
     </div>
-    <!-- Winner Section -->
-    <div id="winner"></div>
     <!-- Include the JavaScript file -->
     <script src="game.js"></script>
 </body>
