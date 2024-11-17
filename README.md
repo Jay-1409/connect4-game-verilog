@@ -15,4 +15,3 @@ To implemen the connect 4 game using verilog as the backend
 - Verilog (logic)
 - Html +  CSS (frontend)
 - Javascript + Flask (connectinng the logic with frontend)
-- 
