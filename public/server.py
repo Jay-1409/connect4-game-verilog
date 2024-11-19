@@ -65,12 +65,12 @@ def reset():
         subprocess.run(["vvp", "connect4_grid.v.out"], check=True)
 
         # Verify the grid was reset by reading the file
-        grid = []
-        with open("grid.txt", "r") as f:
-            for line in f:
-                grid.append([int(x) for x in line.split()])
+        # grid = []
+        # with open("grid.txt", "r") as f:
+        #     for line in f:
+        #         grid.append([int(x) for x in line.split()])
 
-        return jsonify({"success": True, "grid": grid})
+        return jsonify({"success": True})
     except subprocess.CalledProcessError as e:
         return jsonify({"success": False, "error": f"Verilog simulation failed: {e}"})
     except FileNotFoundError:
