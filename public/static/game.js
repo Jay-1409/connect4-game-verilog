@@ -1,7 +1,7 @@
 const SIZE = 10;
 let grid = Array(SIZE).fill().map(() => Array(SIZE).fill(0));  // Create an empty grid
 let currentPlayer = 1;  // Player 1 starts
-
+let gameover = false;
 // Function to render the grid in HTML
 function renderGrid() {
     const gameBoard = document.getElementById('game-board');
@@ -83,6 +83,7 @@ function findEmptyRowInColumn(column) {
 
 // Reset the game
 async function resetGame() {
+    gameover = true;
     try {
         const response = await fetch('/reset', {
             method: 'POST',
@@ -111,8 +112,10 @@ async function checkWinner() {
         const data = await response.json();
 
         if (data.winner === 1) {
+            gameover = true;
             return 1;  // Player 1 wins
         } else if (data.winner === 2) {
+            gameover = true;
             return 2;  // Player 2 wins
         } else {
             return 0;  // No winner yet
