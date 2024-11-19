@@ -31,6 +31,12 @@ function renderGrid() {
 
 // Function to handle column click and make the move
 async function handleColumnClick(column) {
+    if (gameover) {
+        // Exit the function if the game is over
+        document.getElementById('message').innerText = "Game over. Please reset to start a new game.";
+        return;
+    }
+
     const row = findEmptyRowInColumn(column);
 
     if (row === -1) {
@@ -82,8 +88,14 @@ function findEmptyRowInColumn(column) {
 }
 
 // Reset the game
+function resetGamevar() {
+    gameover = false;  // Reset the game state
+    // currentPlayer = 1; // Reset to Player 1
+    // document.getElementById('message').innerText = "Player 1's turn.";
+    // Call your reset logic or endpoint here
+}
+
 async function resetGame() {
-    gameover = true;
     try {
         const response = await fetch('/reset', {
             method: 'POST',
@@ -92,6 +104,8 @@ async function resetGame() {
         const data = await response.json();
 
         if (data.success) {
+            resetGamevar();
+            // gameover = 0;  // Reset gameover to 0
             grid = Array(SIZE).fill().map(() => Array(SIZE).fill(0));  // Reset grid in frontend
             currentPlayer = 1;  // Reset the player to Player 1
             renderGrid();  // Re-render the grid
