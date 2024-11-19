@@ -61,15 +61,23 @@ def move():
 @app.route('/reset', methods=['POST'])
 def reset():
     try:
-        with open("grid.txt", "w") as f:
-            for i in range(10):
-                f.write("0 " * 10 + "\n")
-        
-        return jsonify({"success": True})
+        # Run the Verilog simulation to reset the grid
+        subprocess.run(["vvp", "connect4_grid.v.out"], check=True)
+
+        # Verify the grid was reset by reading the file
+        grid = []
+        with open("grid.txt", "r") as f:
+            for line in f:
+                grid.append([int(x) for x in line.split()])
+
+        return jsonify({"success": True, "grid": grid})
+    except subprocess.CalledProcessError as e:
+        return jsonify({"success": False, "error": f"Verilog simulation failed: {e}"})
+    except FileNotFoundError:
+        return jsonify({"success": False, "error": "grid.txt not found after reset"})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)})
-    
-    
+ 
     
 @app.route('/check_winner', methods=['GET'])
 def check_winner_endpoint():
