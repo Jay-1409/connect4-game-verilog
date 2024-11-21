@@ -14,6 +14,14 @@
             padding: 20px;
         }
 
+        /* Main container for layout */
+        #main-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
         /* Wrapper for the game board */
         #game-wrapper {
             display: inline-block;
@@ -41,15 +49,13 @@
             box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.5);
             cursor: pointer;
             transition: transform 0.3s ease, background-color 0.3s;
-            box-shadow: 0 0 0px 5px rgba(232, 77, 77, 0.6); /* Adjust color and spread as needed */
-
         }
 
         .highlight {
             transform: scale(1);
-            box-shadow: 0 0 0px 5px hsla(287, 85%, 38%, 0.6); /* Adjust color and spread as needed */
+            box-shadow: 0 0 0px 5px hsla(287, 85%, 38%, 0.6);
         }
-        
+
         /* Styling for Player 1's and Player 2's pieces */
         .cell.player1 {
             background-color: #e63946;
@@ -57,7 +63,6 @@
 
         .cell.player2 {
             background-color: hwb(107 38% 4%);
-
         }
 
         /* Drop-in animation */
@@ -105,33 +110,58 @@
             color: #28a745;
         }
 
-        /* Additional improvements */
-        input[type="number"]:focus {
-            outline: none;
-            border-color: #4CAF50;
+        /* Instructions box */
+        #instructions {
+            max-width: 250px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #444;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.5);
+            text-align: left;
+        }
+
+        #instructions h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        #instructions ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        #instructions ul li {
+            margin-bottom: 8px;
         }
     </style>
 </head>
 <body>
-    <div id="game-wrapper">
-        <!-- Game Board -->
-         <h1>Connect-4 Game</h1>
-         <p>  player1 -> Red, player2 -> yellow</p>
-        <div id="game-board"></div>
-        <!-- Reset Button -->
-        <div id="resetbutton">
-            <button onclick="resetGame()">Reset Game</button>
+    <div id="main-container">
+        <!-- Instructions Section -->
+        <div id="instructions">
+            <h2>How to Play</h2>
+            <ul>
+                <li>Each player takes turns dropping their piece into a column.</li>
+                <li>Player 1's pieces are red, and Player 2's are yellow.</li>
+                <li>The goal is to connect four pieces in a row horizontally, vertically, or diagonally.</li>
+                <li>The first player to achieve this wins the game.</li>
+                <li>Click "Reset Game" to start over at any time.</li>
+                <li>        <a href="https://www.mermaidchart.com/raw/f2a8873a-402e-4e6d-9b9b-b2e458fca0b7?theme=light&version=v0.1&format=svg" target="_blank" rel="noopener noreferrer">
+                    View the Flowchart
+                </a></li>
+            </ul>
         </div>
-        <!-- Message to display turn/winner information -->
-        <p id="message">Player 1's turn.</p>
-        <!-- Winner Section -->
-        <div id="winner"></div>
-    </div>
-    <div>
-        <a href="https://www.mermaidchart.com/raw/f2a8873a-402e-4e6d-9b9b-b2e458fca0b7?theme=light&version=v0.1&format=svg" target="_blank" rel="noopener noreferrer">
-            View the Flowchart
-        </a>
-        
+
+        <!-- Game Section -->
+        <div id="game-wrapper">
+            <h1>Connect-4 Game</h1>
+            <div id="game-board"></div>
+            <div id="resetbutton">
+                <button onclick="resetGame()">Reset Game</button>
+            </div>
+            <p id="message">Player 1's turn.</p>
+            <div id="winner"></div>
+        </div>
     </div>
     <!-- Include the JavaScript file -->
     <script src="static\game.js"></script>
