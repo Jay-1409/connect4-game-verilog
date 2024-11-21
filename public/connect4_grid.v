@@ -1,3 +1,5 @@
+//resets the grid
+//heer
 module connect4_grid;
    parameter SIZE = 10;
    reg [1:0] grid [0:SIZE-1][0:SIZE-1]; // 2D array (10x10 grid)

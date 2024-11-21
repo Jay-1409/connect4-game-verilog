@@ -1,3 +1,5 @@
+//modify the grid
+//jay
 module connect4_game;
     parameter SIZE = 10;
     reg [1:0] grid [0:SIZE-1][0:SIZE-1]; 
