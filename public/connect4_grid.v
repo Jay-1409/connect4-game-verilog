@@ -14,7 +14,7 @@ module connect4_grid;
       $display("Initial grid:");
       display_grid();
 
-      // Update the grid to zeros
+      // Update the grid to zeros   
       for (i = 0; i < SIZE; i = i + 1) begin
          for (j = 0; j < SIZE; j = j + 1) begin
             grid[i][j] = 0;
